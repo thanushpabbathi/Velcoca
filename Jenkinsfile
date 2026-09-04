@@ -19,5 +19,11 @@ pipeline {
                 bat 'echo Testing Velcoca application...'
             }
         }
+        stage('Deploy') {
+        steps {
+                bat 'echo Deploying Velcoca website...'
+                bat 'echo Website deployed successfully!'
+            }
+        }
     }
 }
