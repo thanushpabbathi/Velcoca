@@ -19,10 +19,22 @@ pipeline {
                 bat 'echo Testing Velcoca application...'
             }
         }
-        stage('Deploy') {
-        steps {
-                bat 'echo Deploying Velcoca website...'
-                bat 'echo Website deployed successfully!'
+
+        stage('Docker Build') {
+            steps {
+                bat 'docker build -t velcoca .'
+            }
+        }
+
+        stage('Remove Old Container') {
+            steps {
+                bat 'docker rm -f velcoca-container || exit 0'
+            }
+        }
+
+        stage('Docker Run') {
+            steps {
+                bat 'docker run -d -p 8081:80 --name velcoca-container velcoca'
             }
         }
     }
